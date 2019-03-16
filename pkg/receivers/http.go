@@ -35,6 +35,7 @@ import (
 
 type HTTPReceiver struct {
 	Handler *Handler
+	Addr    string
 }
 
 func (handler HTTPReceiver) ServeHTTP(w http.ResponseWriter, r *http.Request) {
@@ -62,8 +63,8 @@ func (handler HTTPReceiver) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func (handler HTTPReceiver) Start(addr string) error {
+func (handler HTTPReceiver) Start() error {
 	http.Handle("/", handler)
-	log.Fatal(http.ListenAndServe(addr, nil))
+	log.Fatal(http.ListenAndServe(handler.Addr, nil))
 	return Gerror{"Shouldn't reach this"}
 }
