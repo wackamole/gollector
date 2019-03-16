@@ -1,9 +1,7 @@
 /*
- * gollector, main method/init
+ * gollector, config method
  *
- * Copyright (c) 2019 Telenor Norge AS
  * Author(s):
- *  - Kristian Lyngstøl <kly@kly.no>
  *  - Fredrik Angell Moe <mr.wackamole@gmail.com>
  *
  * This library is free software; you can redistribute it and/or
@@ -24,27 +22,13 @@
 
 package main
 
-import (
-	"github.com/tkanos/gonfig"
-	. "github.com/wackamole/gollector/pkg/common"
-	. "github.com/wackamole/gollector/pkg/receivers"
-	. "github.com/wackamole/gollector/pkg/senders"
-	"log"
-)
-
-func main() {
-
-	config := Configuration{}
-	err := gonfig.GetConf("config/config.json", &config)
-
-	if err != nil {
-		log.Fatalf("Unable to read config file: %s", err.Error())
-	}
-
-	h := Handler{}
-
-	h.Senders = []Sender{InfluxDB{config.InfluxDBConnStr, config.InfluxDBMeasurement}}
-	var receiver Receiver
-	receiver = HTTPReceiver{&h, config.HTTPAddr}
-	receiver.Start()
+type Configuration struct {
+	HTTPPort            int
+	HTTPAddr            string
+	InfluxDBConnStr     string
+	InfluxDBMeasurement string
+	MysqlHost           string
+	MysqlUser           string
+	MysqlPass           string
+	MysqlDb             string
 }

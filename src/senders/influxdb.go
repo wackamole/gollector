@@ -25,8 +25,8 @@ package senders
 
 import (
 	"bytes"
+	. "common"
 	"fmt"
-	. "github.com/wackamole/gollector/pkg/common"
 	"log"
 	"net/http"
 	"time"

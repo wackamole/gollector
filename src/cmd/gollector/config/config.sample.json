@@ -1,0 +1,9 @@
+{
+  "HTTPAddr": ":8086",
+  "InfluxDBConnStr": "http://127.0.0.1:8086/write?db=test",
+  "InfluxDBMeasurement": "test",
+  "MysqlHost": "localhost",
+  "MysqlUser": "user",
+  "MysqlPass": "password",
+  "MysqlDb": "gollector"
+}

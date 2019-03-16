@@ -25,9 +25,9 @@
 package receivers
 
 import (
+	. "common"
 	"encoding/json"
 	"fmt"
-	. "github.com/wackamole/gollector/pkg/common"
 	"io"
 	"log"
 	"net/http"
@@ -53,13 +53,17 @@ func (handler HTTPReceiver) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			fmt.Fprintf(w, "Unable to parse JSON: %s", err)
 		}
-		for _, t := range handler.Handler.Transformers {
-			t.Transform(&m)
+		if err == nil {
+			for _, t := range handler.Handler.Transformers {
+				t.Transform(&m)
+			}
+			for _, s := range handler.Handler.Senders {
+				s.Send(&m)
+			}
 		}
-		for _, s := range handler.Handler.Senders {
-			s.Send(&m)
-		}
-		fmt.Fprintf(w, "OK\n")
+		fmt.Fprintf(w, "\nOK\n")
+	} else {
+		fmt.Fprint(w, "WTF?\nNo Content guys...")
 	}
 }
 
