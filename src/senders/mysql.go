@@ -73,6 +73,13 @@ func (mdb MysqlDB) Send(c *GollectorContainer) error {
 					log.Print(err)
 				}
 			}
+			for key, value := range c.Template.Metadata {
+				_, err := db.Query("insert into metadata(key_for_value, value, metric_id) values (?,?,?)", key, value, strconv.FormatInt(i, 10))
+				if err != nil {
+					fmt.Printf("Unable to execute query: %s", err)
+					log.Print(err)
+				}
+			}
 		}
 	}
 
