@@ -4,6 +4,7 @@
  * Copyright (c) 2019 Telenor Norge AS
  * Author(s):
  *  - Kristian Lyngstøl <kly@kly.no>
+ *  - Fredrik Angell Moe <mr.wackamole@gmail.com>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -26,7 +27,7 @@ package receivers
 import (
 	"encoding/json"
 	"fmt"
-	. "github.com/KristianLyng/gollector/pkg/common"
+	. "github.com/wackamole/gollector/pkg/common"
 	"io"
 	"log"
 	"net/http"
@@ -61,8 +62,8 @@ func (handler HTTPReceiver) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func (handler HTTPReceiver) Start() error {
+func (handler HTTPReceiver) Start(addr string) error {
 	http.Handle("/", handler)
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	log.Fatal(http.ListenAndServe(addr, nil))
 	return Gerror{"Shouldn't reach this"}
 }

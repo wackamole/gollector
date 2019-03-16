@@ -26,7 +26,7 @@ package senders
 import (
 	"bytes"
 	"fmt"
-	. "github.com/KristianLyng/gollector/pkg/common"
+	. "github.com/wackamole/gollector/pkg/common"
 	"log"
 	"net/http"
 	"time"
