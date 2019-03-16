@@ -41,7 +41,7 @@ type Transformer interface {
 }
 
 type Receiver interface {
-	Start(addr string) error
+	Start() error
 }
 
 type Gerror struct {
